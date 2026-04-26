@@ -1,0 +1,12 @@
+"""
+Root URL configuration.
+Routes /api/* to the monitor app, /admin/ to Django admin.
+"""
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('monitor.urls')),
+]
