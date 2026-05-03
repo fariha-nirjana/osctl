@@ -131,10 +131,18 @@ body {
   background: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
+  min-width: 0;
+}
+
+.metric-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
 }
 
 .metric-label {
@@ -142,6 +150,32 @@ body {
   font-weight: 600;
   color: var(--text-muted);
   letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.sparkline {
+  flex: 1;
+  min-width: 40px;
+  opacity: 0.7;
+}
+
+.metric-delta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.metric-delta.up {
+  color: var(--accent-red);
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.metric-delta.down {
+  color: var(--accent-green);
+  background: rgba(52, 211, 153, 0.1);
 }
 
 .metric-value {
@@ -149,29 +183,42 @@ body {
   font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.metric-unit {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.metric-sub {
+  font-size: 11px;
+  color: var(--text-muted);
 }
 
 /* ---------- Dashboard Grid ---------- */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 340px;
-  grid-template-rows: auto auto auto;
   gap: 16px;
   flex: 1;
 }
 
 .panel-large {
   grid-column: 1;
-  grid-row: 1;
 }
 
 .panel-side {
   grid-column: 2;
-  grid-row: 1 / 4;
+  grid-row: 1 / 5;
 }
 
-.panel-half {
+.panel-half-row {
   grid-column: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 .panel-full {
@@ -286,17 +333,6 @@ body {
   margin-top: 8px;
 }
 
-/* ---------- Metric Strip Extras ---------- */
-.metric-unit {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-secondary);
-}
-
-.metric-sub {
-  font-size: 11px;
-  color: var(--text-muted);
-}
 
 /* ---------- Memory Panel ---------- */
 .memory-header {
@@ -686,4 +722,455 @@ body {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
+}
+
+/* ---------- Logs Panel ---------- */
+.panel-logs {
+  grid-column: 1 / -1;
+}
+
+.logs-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+}
+
+.logs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.logs-header h3 {
+  margin-bottom: 0;
+}
+
+.logs-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.log-count {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.clear-btn {
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  color: var(--accent-red);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.clear-btn:hover {
+  background: rgba(248, 113, 113, 0.2);
+}
+
+/* ---------- Alerts ---------- */
+.alerts-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin-bottom: 10px;
+}
+
+.alerts-icon {
+  font-size: 14px;
+}
+
+.alerts-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-yellow);
+}
+
+.alerts-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.alert-item.warning {
+  background: rgba(251, 191, 36, 0.06);
+  color: var(--accent-yellow);
+}
+
+.alert-item.critical {
+  background: rgba(248, 113, 113, 0.06);
+  color: var(--accent-red);
+}
+
+.alert-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.alert-message {
+  flex: 1;
+  font-weight: 500;
+}
+
+.alert-threshold {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* ---------- Log Entries ---------- */
+.logs-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.log-entry {
+  display: flex;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(42, 53, 80, 0.4);
+  align-items: center;
+}
+
+.log-entry.has-alert {
+  border-left: 2px solid var(--accent-yellow);
+  padding-left: 10px;
+}
+
+.log-time {
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.log-timestamp {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.log-date {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.log-metrics {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.log-metric {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.log-metric.warning {
+  color: var(--accent-yellow);
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.log-metric.critical {
+  color: var(--accent-red);
+  background: rgba(248, 113, 113, 0.08);
+}
+
+
+/* ---------- CPU Usage Split ---------- */
+.cpu-usage-split {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+}
+
+.split-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.split-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.split-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.split-value.user {
+  color: var(--accent-cyan);
+}
+
+.split-value.system {
+  color: var(--accent-purple);
+}
+
+.badge.peak {
+  background: rgba(251, 191, 36, 0.1);
+  color: var(--accent-yellow);
+  border-color: rgba(251, 191, 36, 0.2);
+}
+
+/* ---------- CPU Chart Tabs ---------- */
+.cpu-chart-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  padding: 2px;
+  width: fit-content;
+}
+
+.chart-tab {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chart-tab:hover {
+  color: var(--text-primary);
+}
+
+.chart-tab.active {
+  background: var(--bg-hover);
+  color: var(--accent-cyan);
+}
+
+/* ---------- CPU Temperature ---------- */
+.cpu-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding-top: 8px;
+}
+
+.temp-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.temp-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.fan-value {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ---------- Disk Legend ---------- */
+.disk-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.disk-title-row h3 {
+  margin-bottom: 0;
+}
+
+.disk-legend {
+  display: flex;
+  gap: 10px;
+}
+
+.disk-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.read {
+  background: var(--accent-cyan);
+}
+
+.legend-dot.write {
+  background: var(--accent-green);
+}
+
+/* ---------- Disk Panel Improved ---------- */
+.disk-chart-container {
+  margin-bottom: 12px;
+}
+
+.disk-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.disk-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.disk-summary-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  min-width: 45px;
+}
+
+.disk-summary-pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-primary);
+  min-width: 32px;
+  text-align: right;
+}
+
+.disk-usage-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--bg-secondary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.disk-usage-fill {
+  height: 100%;
+  background: var(--accent-cyan);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* ---------- Panel Height Sync ---------- */
+.panel-half-row {
+  align-items: stretch;
+}
+
+.panel-half-row .panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-half-row > div {
+  min-height: 280px;
+}
+
+
+/* ---------- Disk Panel Redesign ---------- */
+.disk-panel-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.disk-io-chart {
+  margin-bottom: 12px;
+}
+
+.disk-volumes {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.disk-volumes-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.disk-vol-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.disk-vol-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  min-width: 40px;
+}
+
+.disk-vol-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.disk-vol-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.disk-vol-info {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  min-width: 75px;
+  text-align: right;
+}
+
+
+/* ---------- Loading Pulse ---------- */
+.loading-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }

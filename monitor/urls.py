@@ -12,4 +12,6 @@ urlpatterns = [
     path('disk/', views.disk_info),
     path('network/', views.network_info),
     path('processes/', views.process_list),
+    path('logs/', views.system_logs),
+    path('logs/clear/', views.clear_logs),
 ]

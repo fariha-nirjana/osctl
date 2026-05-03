@@ -15,38 +15,49 @@ function NetworkPanel() {
   const prevData = useRef(null);
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    const doFetch = async () => {
       try {
         const res = await fetchNetwork();
         const data = res.data;
 
         if (prevData.current) {
-          const inDelta = (data.bytes_recv - prevData.current.bytes_recv) / 5;
-          const outDelta = (data.bytes_sent - prevData.current.bytes_sent) / 5;
+          const elapsed = 3;
+          const inDelta = (data.bytes_recv - prevData.current.bytes_recv) / elapsed;
+          const outDelta = (data.bytes_sent - prevData.current.bytes_sent) / elapsed;
 
           setCurrent({
-            inRate: inDelta,
-            outRate: outDelta,
+            inRate: Math.max(inDelta, 0),
+            outRate: Math.max(outDelta, 0),
             connections: data.connections,
           });
 
           setHistory(prev => {
             const next = [...prev, {
-              time: new Date().toLocaleTimeString(),
-              in: +(inDelta / 1024).toFixed(1),
-              out: +(outDelta / 1024).toFixed(1),
+              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+              in: +(Math.max(inDelta, 0) / 1024).toFixed(1),
+              out: +(Math.max(outDelta, 0) / 1024).toFixed(1),
             }];
             return next.slice(-60);
           });
+        } else {
+          setCurrent({ inRate: 0, outRate: 0, connections: data.connections });
         }
 
         prevData.current = data;
       } catch (err) {
         console.error('Network fetch error:', err);
       }
-    }, 5000);
+    };
 
-    return () => clearInterval(interval);
+    // Fetch twice quickly on mount so deltas start immediately
+    doFetch();
+    const kickstart = setTimeout(doFetch, 2000);
+    const interval = setInterval(doFetch, 3000);
+
+    return () => {
+      clearTimeout(kickstart);
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -56,7 +67,7 @@ function NetworkPanel() {
         <div className="network-rates">
           <span className="net-rate in">↓ IN {formatRate(current.inRate)}</span>
           <span className="net-rate out">↑ OUT {formatRate(current.outRate)}</span>
-          <span className="net-conn">{current.connections} conn</span>
+          <span className="net-conn">{current.connections === -1 ? '—' : current.connections} conn</span>
         </div>
       </div>
 
