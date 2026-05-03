@@ -1174,3 +1174,369 @@ body {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
+
+
+
+/* ============================================
+   Deadlock Simulator
+   ============================================ */
+
+.deadlock-sim {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.deadlock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deadlock-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.deadlock-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.run-btn {
+  background: var(--accent-cyan);
+  color: var(--bg-primary);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.run-btn:hover {
+  background: #06b6d4;
+  transform: translateY(-1px);
+}
+
+/* ---------- Conditions Strip ---------- */
+.conditions-strip {
+  display: flex;
+  gap: 10px;
+}
+
+.condition-card {
+  flex: 1;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.condition-card.met {
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+.condition-card.not-met {
+  border-color: var(--border);
+}
+
+.condition-indicator {
+  font-size: 10px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.condition-card.met .condition-indicator {
+  color: var(--accent-red);
+}
+
+.condition-card.not-met .condition-indicator {
+  color: var(--text-muted);
+}
+
+.condition-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.condition-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.condition-desc {
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* ---------- Content Layout ---------- */
+.deadlock-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ---------- Matrices ---------- */
+.matrices-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.matrix-block {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.matrix-block h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.matrix-hint {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 11px;
+  margin-left: 6px;
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 60px repeat(3, 1fr);
+  gap: 4px;
+  align-items: center;
+}
+
+.matrix-grid.header-only {
+  grid-template-columns: 60px repeat(3, 1fr);
+}
+
+.matrix-corner {
+  /* empty top-left cell */
+}
+
+.matrix-header {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  text-align: center;
+}
+
+.matrix-row-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.matrix-input {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-align: center;
+  outline: none;
+}
+
+.matrix-input:focus {
+  border-color: var(--accent-cyan);
+}
+
+.matrix-cell {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.matrix-cell.invalid {
+  color: var(--accent-red);
+  background: rgba(248, 113, 113, 0.1);
+}
+
+/* ---------- Trace Section ---------- */
+.trace-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trace-section h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.result-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 8px;
+}
+
+.result-banner.safe {
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.result-banner.unsafe {
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.result-icon {
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.result-banner.safe .result-icon {
+  color: var(--accent-green);
+}
+
+.result-banner.unsafe .result-icon {
+  color: var(--accent-red);
+}
+
+.result-title {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.result-detail {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.trace-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trace-btn {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.trace-btn:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.trace-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.trace-btn.show-all {
+  margin-left: auto;
+  color: var(--accent-cyan);
+  border-color: rgba(34, 211, 238, 0.2);
+}
+
+.trace-counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.trace-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.trace-entry {
+  display: flex;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  align-items: flex-start;
+}
+
+.trace-entry.check_pass {
+  border-left: 3px solid var(--accent-green);
+}
+
+.trace-entry.check_fail {
+  border-left: 3px solid var(--accent-yellow);
+}
+
+.trace-entry.release {
+  border-left: 3px solid var(--accent-cyan);
+}
+
+.trace-entry.result {
+  border-left: 3px solid var(--accent-purple);
+}
+
+.trace-entry.init {
+  border-left: 3px solid var(--text-muted);
+}
+
+.trace-step-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  min-width: 16px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.trace-message {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.trace-available {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: auto;
+}
