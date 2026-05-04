@@ -1540,3 +1540,514 @@ body {
   flex-shrink: 0;
   margin-left: auto;
 }
+
+/* ============================================
+   Detail Pages
+   ============================================ */
+
+.detail-page {
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.detail-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.detail-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.detail-stats-row {
+  display: flex;
+  gap: 20px;
+}
+
+.detail-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.detail-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.detail-stat-value {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.detail-stat-value.peak {
+  color: var(--accent-yellow);
+}
+
+/* ---------- Detail Grid ---------- */
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.detail-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.detail-card h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.detail-card.span-2 {
+  grid-column: span 2;
+}
+
+.detail-card.span-3 {
+  grid-column: span 3;
+}
+
+/* ---------- Core Heatmap ---------- */
+.core-heatmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 6px;
+}
+
+.core-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.core-id {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.core-pct {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ---------- Usage Split Chart ---------- */
+.usage-split-chart {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.usage-split-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.usage-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.usage-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.usage-legend-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 55px;
+}
+
+.usage-legend-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ---------- Load Average Detail ---------- */
+.load-avg-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.load-avg-cards {
+  display: flex;
+  gap: 12px;
+}
+
+.load-avg-card {
+  flex: 1;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.load-avg-period {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.load-avg-num {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ---------- Per-Core History ---------- */
+.core-history {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.core-history-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 32px;
+}
+
+.core-history-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  min-width: 24px;
+  text-align: right;
+  align-self: center;
+}
+
+.core-history-bars {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 100%;
+}
+
+.core-history-bar {
+  flex: 1;
+  min-width: 3px;
+  border-radius: 2px 2px 0 0;
+  transition: height 0.3s ease, background 0.3s ease;
+}
+
+.core-history-current {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  min-width: 32px;
+  text-align: right;
+  align-self: center;
+}
+
+/* ---------- Memory Detail Extras ---------- */
+.pressure-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.pressure-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pressure-pct {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pressure-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.pressure-gauge.normal .pressure-label { color: var(--accent-green); }
+.pressure-gauge.warning .pressure-label { color: var(--accent-yellow); }
+.pressure-gauge.critical .pressure-label { color: var(--accent-red); }
+
+.pressure-bar-container {
+  width: 100%;
+}
+
+.pressure-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pressure-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.pressure-fill.normal { background: var(--accent-green); }
+.pressure-fill.warning { background: var(--accent-yellow); }
+.pressure-fill.critical { background: var(--accent-red); }
+.pressure-fill.swap-fill { background: var(--accent-purple); }
+
+.pressure-markers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.swap-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.swap-numbers {
+  display: flex;
+  gap: 16px;
+}
+
+.swap-stat {
+  flex: 1;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.swap-stat-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.swap-stat-value {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ---------- Top Memory Consumers ---------- */
+.top-consumers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.consumer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.consumer-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  min-width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.consumer-bar-container {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.consumer-bar {
+  height: 100%;
+  background: var(--accent-cyan);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.consumer-pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-primary);
+  min-width: 35px;
+  text-align: right;
+}
+
+/* ---------- Storage Detail Extras ---------- */
+.io-ops {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.io-op-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.io-op-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.io-op-value {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.volume-detail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.volume-usage-ring {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.volume-ring-center {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.volume-ring-pct {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.volume-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.volume-info-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.volume-info-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.volume-info-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+/* ---------- Network Detail Extras ---------- */
+.transfer-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.transfer-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.transfer-icon {
+  font-size: 16px;
+  color: var(--accent-cyan);
+  width: 20px;
+  text-align: center;
+}
+
+.transfer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.transfer-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.transfer-value {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.transfer-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2px 0;
+}

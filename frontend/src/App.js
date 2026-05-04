@@ -8,6 +8,10 @@ import DiskPanel from './components/DiskPanel';
 import NetworkPanel from './components/NetworkPanel';
 import LogsPanel from './components/LogsPanel';
 import DeadlockSimulator from './components/DeadlockSimulator';
+import CpuDetailPage from './components/CpuDetailPage';
+import MemoryDetailPage from './components/MemoryDetailPage';
+import StorageDetailPage from './components/StorageDetailPage';
+import NetworkDetailPage from './components/NetworkDetailPage';
 import './App.css';
 
 function App() {
@@ -40,6 +44,10 @@ function App() {
             </div>
           </>
         )}
+        {view === 'cpu' && <CpuDetailPage />}
+        {view === 'memory' && <MemoryDetailPage />}
+        {view === 'storage' && <StorageDetailPage />}
+        {view === 'network' && <NetworkDetailPage />}
         {view === 'deadlock' && <DeadlockSimulator />}
       </div>
     </div>
