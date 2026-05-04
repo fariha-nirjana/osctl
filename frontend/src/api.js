@@ -16,3 +16,4 @@ export const fetchNetwork = () => API.get('/network/');
 export const fetchProcesses = () => API.get('/processes/');
 export const fetchLogs = () => API.get('/logs/');
 export const clearLogs = () => API.delete('/logs/clear/');
+export const killProcess = (pid) => API.post('/kill/', { pid });

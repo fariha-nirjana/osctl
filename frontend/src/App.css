@@ -1,6 +1,4 @@
-/* ============================================
-   osctl — OS Health Dashboard
-   ============================================ */
+/* ======== osctl — OS Health Dashboard ========= */
 
 /* ---------- CSS Variables ---------- */
 :root {
@@ -1177,9 +1175,7 @@ body {
 
 
 
-/* ============================================
-   Deadlock Simulator
-   ============================================ */
+/* ========= Deadlock Simulator ========= */
 
 .deadlock-sim {
   padding: 8px 0;
@@ -1541,9 +1537,7 @@ body {
   margin-left: auto;
 }
 
-/* ============================================
-   Detail Pages
-   ============================================ */
+/* ========= Detail Pages ========= */
 
 .detail-page {
   padding: 8px 0;
@@ -2053,9 +2047,7 @@ body {
 }
 
 
-/* ============================================
-   Process Detail Page
-   ============================================ */
+/* ========= Process Detail Page ========= */
 
 .proc-table-header {
   display: flex;
@@ -2320,9 +2312,7 @@ body {
   50% { opacity: 0.6; }
 }
 
-/* ============================================
-   Logs Detail Page
-   ============================================ */
+/* ========= Logs Detail Page ========= */
 
 .logs-detail-actions {
   display: flex;
@@ -2457,9 +2447,7 @@ body {
   color: var(--text-muted);
 }
 
-/* ============================================
-   Alerts Detail Page
-   ============================================ */
+/* ========= Alerts Detail Page ========= */
 
 .no-alerts-display {
   display: flex;
@@ -2675,4 +2663,26 @@ body {
   font-size: 11px;
   color: var(--text-muted);
   flex-shrink: 0;
+}
+
+
+/* ---------- Process Kill Button ---------- */
+.kill-btn {
+  margin-top: 10px;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: var(--accent-red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.kill-btn:hover {
+  background: rgba(248, 113, 113, 0.15);
+  border-color: rgba(248, 113, 113, 0.5);
 }

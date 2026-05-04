@@ -266,3 +266,28 @@ def clear_logs(request):
     if os.path.exists(LOG_FILE):
         os.remove(LOG_FILE)
     return Response({'status': 'cleared'})
+
+
+# Terminates a process by PID / demonstrates OS process management (kill signals)
+@api_view(['POST'])
+def kill_process(request):
+    pid = request.data.get('pid')
+    if not pid:
+        return Response({'error': 'PID required'}, status=400)
+
+    try:
+        proc = psutil.Process(int(pid))
+        proc_name = proc.name()
+        proc.terminate()  # Sends SIGTERM (graceful shutdown)
+        return Response({
+            'status': 'terminated',
+            'pid': pid,
+            'name': proc_name,
+            'signal': 'SIGTERM',
+        })
+    except psutil.NoSuchProcess:
+        return Response({'error': f'Process {pid} not found'}, status=404)
+    except psutil.AccessDenied:
+        return Response({'error': f'Permission denied — cannot kill PID {pid} (try running as root)'}, status=403)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)

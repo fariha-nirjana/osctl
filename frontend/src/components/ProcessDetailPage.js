@@ -1,6 +1,6 @@
 // ProcessDetailPage => full process view with state distribution, top consumers, and detailed table
 import React, { useState, useEffect } from 'react';
-import { fetchProcesses } from '../api';
+import { fetchProcesses, killProcess } from '../api';
 import {
   PieChart, Pie, Cell, BarChart, Bar, LineChart, Line,
   XAxis, YAxis, Tooltip, ResponsiveContainer
@@ -327,7 +327,8 @@ function ProcessDetailPage() {
                     </span>
                   </div>
 
-                  {expanded === proc.pid && (
+                  
+                {expanded === proc.pid && (
                     <div className="proc-detail-expanded">
                       <div className="proc-detail-info">
                         <div className="proc-info-item">
@@ -355,8 +356,21 @@ function ProcessDetailPage() {
                           <span className="proc-info-value">{proc.memory}%</span>
                         </div>
                       </div>
+                      <button
+                        className="kill-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (window.confirm(`Terminate ${proc.name} (PID ${proc.pid})?`)) {
+                            killProcess(proc.pid)
+                              .then(() => setExpanded(null))
+                              .catch(err => alert(err.response?.data?.error || 'Failed to kill process'));
+                          }
+                        }}
+                      >
+                        ⏻ Terminate Process
+                      </button>
                     </div>
-                  )}
+                  )}    
                 </React.Fragment>
               ))}
             </div>

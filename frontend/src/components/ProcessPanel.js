@@ -1,6 +1,6 @@
 // ProcessPanel (sortable, filterable process table with expandable rows)
 import React, { useState, useEffect } from 'react';
-import { fetchProcesses } from '../api';
+import { fetchProcesses, killProcess } from '../api';
 
 function ProcessPanel() {
   const [processes, setProcesses] = useState([]);
@@ -88,36 +88,49 @@ function ProcessPanel() {
               <span className="col-mem">{proc.memory}</span>
             </div>
 
-            {expanded === proc.pid && (
-              <div className="process-detail">
-                <div className="detail-row">
-                  <span className="detail-label">Full Name</span>
-                  <span className="detail-value">{proc.name}</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">PID</span>
-                  <span className="detail-value">{proc.pid}</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">User</span>
-                  <span className="detail-value">{proc.user}</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">Status</span>
-                  <span className="detail-status" style={{ color: statusColor(proc.status) }}>
-                    {proc.status}
-                  </span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">CPU</span>
-                  <span className="detail-value">{proc.cpu}%</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">Memory</span>
-                  <span className="detail-value">{proc.memory}%</span>
-                </div>
-              </div>
-            )}
+          {expanded === proc.pid && (
+                    <div className="proc-detail-expanded">
+                      <div className="proc-detail-info">
+                        <div className="proc-info-item">
+                          <span className="proc-info-label">Process ID</span>
+                          <span className="proc-info-value">{proc.pid}</span>
+                        </div>
+                        <div className="proc-info-item">
+                          <span className="proc-info-label">Full Name</span>
+                          <span className="proc-info-value">{proc.name}</span>
+                        </div>
+                        <div className="proc-info-item">
+                          <span className="proc-info-label">User</span>
+                          <span className="proc-info-value">{proc.user}</span>
+                        </div>
+                        <div className="proc-info-item">
+                          <span className="proc-info-label">Status</span>
+                          <span className="proc-info-value" style={{ color: statusColor(proc.status) }}>{proc.status}</span>
+                        </div>
+                        <div className="proc-info-item">
+                          <span className="proc-info-label">CPU Usage</span>
+                          <span className="proc-info-value">{proc.cpu}%</span>
+                        </div>
+                        <div className="proc-info-item">
+                          <span className="proc-info-label">Memory Usage</span>
+                          <span className="proc-info-value">{proc.memory}%</span>
+                        </div>
+                      </div>
+                      <button
+                        className="kill-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (window.confirm(`Terminate ${proc.name} (PID ${proc.pid})?`)) {
+                            killProcess(proc.pid)
+                              .then(() => setExpanded(null))
+                              .catch(err => alert(err.response?.data?.error || 'Failed to kill process'));
+                          }
+                        }}
+                      >
+                        ⏻ Terminate Process
+                      </button>
+                    </div>
+                  )}  
           </div>
         ))}
       </div>
