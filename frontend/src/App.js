@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AlertProvider } from './components/AlertContext';
 import Sidebar from './components/Sidebar';
 import MetricStrip from './components/MetricStrip';
 import CpuPanel from './components/CpuPanel';
@@ -12,45 +13,53 @@ import CpuDetailPage from './components/CpuDetailPage';
 import MemoryDetailPage from './components/MemoryDetailPage';
 import StorageDetailPage from './components/StorageDetailPage';
 import NetworkDetailPage from './components/NetworkDetailPage';
+import ProcessDetailPage from './components/ProcessDetailPage';
+import LogsDetailPage from './components/LogsDetailPage';
+import AlertsDetailPage from './components/AlertsDetailPage';
 import './App.css';
 
 function App() {
   const [view, setView] = useState('monitor');
 
   return (
-    <div className="app">
-      <Sidebar view={view} setView={setView} />
-      <div className="main-content">
-        {view === 'monitor' && (
-          <>
-            <MetricStrip />
-            <div className="dashboard-grid">
-              <div className="panel-large" id="cpu-panel">
-                <CpuPanel />
+    <AlertProvider>
+      <div className="app">
+        <Sidebar view={view} setView={setView} />
+        <div className="main-content">
+          {view === 'monitor' && (
+            <>
+              <MetricStrip />
+              <div className="dashboard-grid">
+                <div className="panel-large" id="cpu-panel">
+                  <CpuPanel />
+                </div>
+                <div className="panel-side" id="process-panel">
+                  <ProcessPanel />
+                </div>
+                <div className="panel-half-row">
+                  <div id="memory-panel"><MemoryPanel /></div>
+                  <div id="disk-panel"><DiskPanel /></div>
+                </div>
+                <div className="panel-full" id="network-panel">
+                  <NetworkPanel />
+                </div>
+                <div className="panel-logs" id="logs-panel">
+                  <LogsPanel />
+                </div>
               </div>
-              <div className="panel-side" id="process-panel">
-                <ProcessPanel />
-              </div>
-              <div className="panel-half-row">
-                <div id="memory-panel"><MemoryPanel /></div>
-                <div id="disk-panel"><DiskPanel /></div>
-              </div>
-              <div className="panel-full" id="network-panel">
-                <NetworkPanel />
-              </div>
-              <div className="panel-logs" id="logs-panel">
-                <LogsPanel />
-              </div>
-            </div>
-          </>
-        )}
-        {view === 'cpu' && <CpuDetailPage />}
-        {view === 'memory' && <MemoryDetailPage />}
-        {view === 'storage' && <StorageDetailPage />}
-        {view === 'network' && <NetworkDetailPage />}
-        {view === 'deadlock' && <DeadlockSimulator />}
+            </>
+          )}
+          {view === 'cpu' && <CpuDetailPage />}
+          {view === 'memory' && <MemoryDetailPage />}
+          {view === 'storage' && <StorageDetailPage />}
+          {view === 'network' && <NetworkDetailPage />}
+          {view === 'processes' && <ProcessDetailPage />}
+          {view === 'logs' && <LogsDetailPage />}
+          {view === 'alerts' && <AlertsDetailPage />}
+          {view === 'deadlock' && <DeadlockSimulator />}
+        </div>
       </div>
-    </div>
+    </AlertProvider>
   );
 }
 

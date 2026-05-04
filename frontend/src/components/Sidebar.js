@@ -1,7 +1,10 @@
-// Sidebar => left navigation with Monitor/Learn mode switching and detail pages
+// Sidebar => navigation with alert badge counter
 import React from 'react';
+import { useAlerts } from './AlertContext';
 
 function Sidebar({ view, setView }) {
+  const { alertCount } = useAlerts();
+
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
@@ -27,14 +30,17 @@ function Sidebar({ view, setView }) {
         </a>
 
         <p className="nav-section">INSPECT</p>
-        <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); setView('monitor'); setTimeout(() => { const el = document.getElementById('process-panel'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+        <a href="#" className={`nav-item ${view === 'processes' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setView('processes'); }}>
           Processes
         </a>
-        <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); setView('monitor'); setTimeout(() => { const el = document.getElementById('logs-panel'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+        <a href="#" className={`nav-item ${view === 'logs' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setView('logs'); }}>
           Logs
         </a>
-        <a href="#" className="nav-item" onClick={(e) => { e.preventDefault(); setView('monitor'); setTimeout(() => { const el = document.getElementById('logs-panel'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+        <a href="#" className={`nav-item ${view === 'alerts' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setView('alerts'); }}>
           Alerts
+          {alertCount > 0 && (
+            <span className="alert-badge">{alertCount}</span>
+          )}
         </a>
 
         <p className="nav-section">LEARN</p>

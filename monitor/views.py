@@ -214,6 +214,7 @@ def system_logs(request):
         entry['alert_mem'] = f'HIGH MEMORY: {mem.percent}%'
         alerts.append({'level': 'critical', 'message': f'Memory usage at {mem.percent}%', 'threshold': 85})
     elif mem.percent > 70:
+        entry['alert_mem'] = f'ELEVATED MEMORY: {mem.percent}%'
         alerts.append({'level': 'warning', 'message': f'Memory usage at {mem.percent}%', 'threshold': 70})
 
     # Count zombie processes
