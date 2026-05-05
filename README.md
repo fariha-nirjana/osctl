@@ -126,7 +126,11 @@ This was built and tested on an Apple Silicon Mac. A couple of things to know:
 
 ## Screenshots
 
-<img width="1918" height="965" alt="osctl 1" src="https://github.com/user-attachments/assets/7036c280-c7d7-4e3b-ba81-4fea99605274" />
+Well, how about a video demo instead? Click on the image below to watch the detailed walkthrough!
+
+<a href="https://www.youtube.com/watch?v=DGwWb2RR0M0" target="_blank">
+  <img src="osctlthumbnail.png" alt="Watch osctl walkthrough" width="100%"/>
+</a>
 
 
 ---
